@@ -9,7 +9,7 @@
     <Company>Jie2GG</Company>
     <RepositoryUrl>https://github.com/Jie2GG/Native.Csharp.Frame</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jie2GG/Native.Csharp.Frame</PackageProjectUrl>
-    <Version>3.0.7.1208</Version>
+    <Version>3.0.8.0106</Version>
     <Copyright>MIT</Copyright>
     <PackageIcon>Logo.jpg</PackageIcon>
     <PackageIconUrl />
@@ -29,18 +29,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include=".\Logo.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\Logo.jpg">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+  </ItemGroup>
+  
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
