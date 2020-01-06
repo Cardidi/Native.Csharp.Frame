@@ -78,15 +78,15 @@
     </Reference>
   </ItemGroup>
   <Target Name="DllExportInit" BeforeTargets="PrepareForBuild">
-    <Error Condition="!Exists('$(SolutionDir)DllExport.bat') And !Exists('$(ProjectDir)Lib\DllExport.bat')" Text="DllExport.bat is not found." />
-    <Exec Condition="!Exists('$(SolutionDir)DllExport.bat')" Command="XCOPY /YCies &quot;$(ProjectDir)Lib\packages\DllExport.1.7.0-beta3&quot; &quot;$(SolutionDir)packages\DllExport.1.7.0-beta3\&quot; &gt; nul &amp; copy /Y &quot;$(ProjectDir)Lib\DllExport.bat&quot; &quot;$(SolutionDir)DllExport.bat&quot;" />
+    <Error Condition="!Exists('$(ProjectDir)..\DllExport.bat') And !Exists('$(ProjectDir)Lib\DllExport.bat')" Text="DllExport.bat is not found." />
+    <Exec Condition="!Exists('$(ProjectDir)..\DllExport.bat')" Command="XCOPY /YCies &quot;$(ProjectDir)Lib\packages\DllExport.1.7.0-beta3&quot; &quot;$(ProjectDir)..\packages\DllExport.1.7.0-beta3\&quot; &gt; nul &amp; copy /Y &quot;$(ProjectDir)Lib\DllExport.bat&quot; &quot;$(ProjectDir)..\DllExport.bat&quot;" />
   </Target>
   <ImportGroup Label=".NET DllExport">
-    <Import Project="$(SolutionDir)packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets" Condition="Exists($([MSBuild]::Escape('$(SolutionDir)packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets')))" Label="8337224c9ad9e356" />
+    <Import Project="$(ProjectDir)..\packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets" Condition="Exists($([MSBuild]::Escape('$(ProjectDir)..\packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets')))" Label="8337224c9ad9e356" />
   </ImportGroup>
   <Target Name="DllExportRestorePkg" BeforeTargets="PrepareForBuild">
     <Error Condition="!Exists('$(SolutionDir)DllExport.bat')" Text="DllExport.bat is not found. Path: '$(SolutionDir)' - https://github.com/3F/DllExport" />
-    <Exec Condition="('$(DllExportModImported)' != 'true' Or !Exists('$(SolutionDir)packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets')) And Exists('$(SolutionDir)DllExport.bat')" Command="DllExport.bat  -action Restore" WorkingDirectory="$(SolutionDir)" />
+    <Exec Condition="('$(DllExportModImported)' != 'true' Or !Exists('$(ProjectDir)..\packages\DllExport.1.7.0-beta3\tools\net.r_eg.DllExport.targets')) And Exists('$(ProjectDir)..\DllExport.bat')" Command="DllExport.bat  -action Restore" WorkingDirectory="$(ProjectDir)..\" />
   </Target>
   <Target Name="DllExportRPkgDynamicImport" BeforeTargets="PostBuildEvent" DependsOnTargets="GetFrameworkPaths" Condition="'$(DllExportModImported)' != 'true' And '$(DllExportRPkgDyn)' != 'false'">
     <MSBuild BuildInParallel="true" UseResultsCache="true" Projects="$(MSBuildProjectFullPath)" Properties="DllExportRPkgDyn=true" Targets="Build" />
