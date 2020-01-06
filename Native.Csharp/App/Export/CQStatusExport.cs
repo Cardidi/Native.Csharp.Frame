@@ -45,14 +45,14 @@ namespace Native.Csharp.App.Export
 		{	
 			/*	
 			 * Id: 1	
-			 * Name: 运行时间	
+			 * Name: 新加好友累计	
 			 * Title: UPTIME	
 			 * Function: _statusUptime	
 			 * Period: 1000	
 			 */	
-			if (Common.AppInfo.UnityContainer.IsRegistered<IStatusUpdate> ("运行时间"))	
+			if (Common.AppInfo.UnityContainer.IsRegistered<IStatusUpdate> ("新加好友累计"))	
 			{	
-				Status_statusUptimeHandler += Common.AppInfo.UnityContainer.Resolve<IStatusUpdate> ("运行时间").StatusUpdate;	
+				Status_statusUptimeHandler += Common.AppInfo.UnityContainer.Resolve<IStatusUpdate> ("新加好友累计").StatusUpdate;	
 			}	
 			
 		}	
@@ -61,7 +61,7 @@ namespace Native.Csharp.App.Export
 		#region --导出方法--	
 		/*	
 		 * Id: 1	
-		 * Name: 运行时间	
+		 * Name: 新加好友累计	
 		 * Title: UPTIME	
 		 * Function: _statusUptime	
 		 * Period: 1000	
@@ -70,7 +70,7 @@ namespace Native.Csharp.App.Export
 		[DllExport (ExportName = "_statusUptime", CallingConvention = CallingConvention.StdCall)]	
 		public static string Status_statusUptime ()	
 		{	
-			CQStatusUpdateEventArgs args = new CQStatusUpdateEventArgs (api, log, 1, "运行时间", "UPTIME", "_statusUptime", 1000);	
+			CQStatusUpdateEventArgs args = new CQStatusUpdateEventArgs (api, log, 1, "新加好友累计", "UPTIME", "_statusUptime", 1000);	
 			if (Status_statusUptimeHandler != null)	
 			{	
 				return Status_statusUptimeHandler (typeof (CQStatusExport), args).ToSendString ();	
