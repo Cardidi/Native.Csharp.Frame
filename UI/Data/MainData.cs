@@ -4,13 +4,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using Native.Csharp.Sdk.Cqp.EventArgs;
+using System.Windows;
+using PropertyChanged;
+using System.Windows.Data;
+using GalaSoft.MvvmLight.Command;
+using Native.Csharp.Sdk.Cqp;
 
 namespace UI.Data
 {
-    public class MainData : INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class MainData
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public CQApi Api;
+
+        public CQLog Log;
 
         public string Title { get; set; }
+
+        public object SyncLock { get; set; } = new object();
+
+        public ObservableCollection<Message> GroupMessages { get; set; } = new ObservableCollection<Message>();
+
+        public ObservableCollection<Group> Groups { get; set; } = new ObservableCollection<Group>();
+
+        public string ReadyToSend { get; set; }
+
+        public Group SelectedGroup { get; set; }
+
+        public RelayCommand SendCommand => new RelayCommand(OnSend);
+
+        public void OnSend()
+        {
+            if (string.IsNullOrEmpty(ReadyToSend)) { MessageBox.Show("請先輸入信息"); }
+            Api.SendGroupMessage(SelectedGroup.GroupId, ReadyToSend);
+            BindingOperations.EnableCollectionSynchronization(GroupMessages, SyncLock);
+            GroupMessages.Add(new Message()
+            {
+                TargetSide = false,
+                DisplayName = Api.GetLoginNick(),
+                GroupName = SelectedGroup.GroupName,
+                Content = ReadyToSend,
+                GroupId = SelectedGroup.GroupId,
+                Qq = Api.GetLoginQQ().Id
+            });
+            ReadyToSend = string.Empty;
+        }
+    }
+
+    public class Message
+    {
+        public long Qq { get; set; }
+        public long GroupId { get; set; }
+        public string GroupName { get; set; }
+        public string DisplayName { get; set; }
+        public string Content { get; set; }
+        public bool TargetSide { get; set; } = true;
+    }
+
+    public class Group
+    {
+        public long GroupId { get; set; }
+        public string GroupName { get; set; }
     }
 }

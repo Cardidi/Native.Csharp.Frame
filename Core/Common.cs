@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI;
 
 namespace Core
 {
@@ -14,5 +15,7 @@ namespace Core
         public static bool IsRunning { get; set; } = false;
 
         public static long NewFriends { get; set; } = 0;
+
+        public static MainWindow MainWindow = null;
     }
 }

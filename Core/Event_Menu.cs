@@ -13,7 +13,6 @@ namespace Core
 {
     public class Event_Menu : IMenuCall
     {
-        private static MainWindow _mainWindow = null;
 
         public void MenuCall(object sender, CQMenuCallEventArgs e)
         {
@@ -23,17 +22,17 @@ namespace Core
 
         public void OpenWpf()
         {
-            if (_mainWindow != null)
+            if (Common.MainWindow != null)
             {
                 var propertyInfo = typeof(MainWindow).GetProperty("IsDisposed", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (!(bool)propertyInfo.GetValue(_mainWindow, null))
+                if (!(bool)propertyInfo.GetValue(Common.MainWindow, null))
                 {
-                    _mainWindow.Focus();
+                    Common.MainWindow.Focus();
                     return;
                 }
             }
-            _mainWindow = new MainWindow();
-            _mainWindow.Show();
+            Common.MainWindow = new MainWindow();
+            Common.MainWindow.Show();
         }
     }
 }

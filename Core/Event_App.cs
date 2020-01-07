@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.Model;
 
 namespace Core
 {
@@ -27,7 +28,8 @@ namespace Core
 
         public void CQStartup(object sender, CQStartupEventArgs e)
         {
-
+            ViewModel.MainInstance.Api = e.CQApi;
+            ViewModel.MainInstance.Log = e.CQLog;
         }
     }
 }

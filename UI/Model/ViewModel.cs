@@ -9,6 +9,10 @@ namespace UI.Model
 {
     public static class ViewModel
     {
-        public static MainData MainInstance = new MainData() { Title = "样例应用(运行模式)" };
+        public static MainData MainInstance = new MainData() 
+        { 
+         Title = "样例应用(运行模式)",
+         GroupMessages = new System.Collections.ObjectModel.ObservableCollection<Message>()
+        };
     }
 }
