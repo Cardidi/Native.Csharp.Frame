@@ -15,6 +15,7 @@
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
+        <ObjectDataProvider x:Key="Date" ObjectType="{x:Type system:DateTime}"/>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" Background="#66CCFF" BorderBrush="#FF97A0A5" BorderThickness="1" />
         </ControlTemplate>
@@ -75,9 +76,9 @@
                     <DataTemplate>
                         <StackPanel>
                             <WrapPanel>
-                                <Label Background="Aqua" Content="{Binding GroupName,FallbackValue=群名稱}"/>
+                                <Label Background="Aqua" Content="{Binding GroupName}"/>
                                 <Label Content="{Binding DisplayName,FallbackValue=發言對像}"/>
-                                <Label Content="{Binding Source={x:Static system:DateTime.Now}, StringFormat={}{0:T}}" />
+                                <Label Content="{Binding Source={StaticResource Date}, Path=Now , Mode=OneWay, StringFormat={}{0:T}}" />
                             </WrapPanel>
                             <WrapPanel>
                                 <TextBlock Text="{Binding Content}"/>
@@ -87,7 +88,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <ComboBox FontSize="12" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup, Mode =TwoWay , UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="GroupName" IsEditable="False" IsTextSearchEnabled="False" StaysOpenOnEdit="False" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
-            <TextBox  Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="MessageBox" FontSize="15" TextAlignment="Left" Text="{Binding ReadyToSend}"/>
+            <TextBox  Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="MessageBox" FontSize="15" TextAlignment="Left" Text="{Binding ReadyToSend, Mode =TwoWay , UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Background="Transparent" IsHitTestVisible="False" FontSize="15" TextAlignment="Left" Text="輸入信息以發送…" VerticalAlignment="Top" Margin="5,0,0,0" HorizontalAlignment="Left" Foreground="DarkGray">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">

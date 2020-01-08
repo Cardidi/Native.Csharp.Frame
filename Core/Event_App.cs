@@ -1,7 +1,9 @@
 ﻿using Native.Csharp.Sdk.Cqp.EventArgs;
 using Native.Csharp.Sdk.Cqp.Interface;
+using Native.Csharp.Tool.IniConfig.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,7 @@ namespace Core
         {
             ViewModel.MainInstance.Api = e.CQApi;
             ViewModel.MainInstance.Log = e.CQLog;
+            ViewModel.MainInstance.UISettingPath = Path.Combine(e.CQApi.AppDirectory, "UISetting.ini");
         }
     }
 }

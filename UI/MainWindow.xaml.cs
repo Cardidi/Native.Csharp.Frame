@@ -1,7 +1,9 @@
 ﻿using Native.Csharp.Sdk.Cqp;
 using Native.Csharp.Sdk.Cqp.EventArgs;
+using Native.Csharp.Tool.IniConfig.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UI.Data;
 using UI.Model;
 
 namespace UI
@@ -34,9 +36,19 @@ namespace UI
             {
                 if (ViewModel.MainInstance.Groups.Any(a => a.GroupId == g.Group.Id) == false)
                 {
-                    ViewModel.MainInstance.Groups.Add(new Data.Group { GroupId = g.Group.Id, GroupName = g.Name });
+                    ViewModel.MainInstance.Groups.Add(new Group { GroupId = g.Group.Id, GroupName = g.Name });
                 }
             });
+
+            this.Loaded += (s, e) =>
+            {
+                AppSetting.Load();
+            };
+
+            this.Closing += (s, e) =>
+            {
+                AppSetting.Save();
+            };
         }
 
 

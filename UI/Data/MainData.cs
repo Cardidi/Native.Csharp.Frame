@@ -11,15 +11,18 @@ using PropertyChanged;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.Command;
 using Native.Csharp.Sdk.Cqp;
+using UI.Model;
 
 namespace UI.Data
 {
     [AddINotifyPropertyChangedInterface]
     public class MainData
     {
-        public CQApi Api;
+        public CQApi Api { get; set; }
 
-        public CQLog Log;
+        public CQLog Log { get; set; }
+
+        public string UISettingPath { get; set; }
 
         public string Title { get; set; }
 
@@ -37,13 +40,13 @@ namespace UI.Data
 
         public void OnSend()
         {
-            if (string.IsNullOrEmpty(ReadyToSend)) { MessageBox.Show("請先輸入信息"); }
+            if (string.IsNullOrEmpty(ReadyToSend)) { MessageBox.Show("請先輸入信息"); return; }
             Api.SendGroupMessage(SelectedGroup.GroupId, ReadyToSend);
             BindingOperations.EnableCollectionSynchronization(GroupMessages, SyncLock);
             GroupMessages.Add(new Message()
             {
                 TargetSide = false,
-                DisplayName = Api.GetLoginNick(),
+                DisplayName = Api.GetGroupMemberInfo(SelectedGroup.GroupId, Api.GetLoginQQ().Id).Nick,
                 GroupName = SelectedGroup.GroupName,
                 Content = ReadyToSend,
                 GroupId = SelectedGroup.GroupId,
@@ -53,19 +56,4 @@ namespace UI.Data
         }
     }
 
-    public class Message
-    {
-        public long Qq { get; set; }
-        public long GroupId { get; set; }
-        public string GroupName { get; set; }
-        public string DisplayName { get; set; }
-        public string Content { get; set; }
-        public bool TargetSide { get; set; } = true;
-    }
-
-    public class Group
-    {
-        public long GroupId { get; set; }
-        public string GroupName { get; set; }
-    }
 }
