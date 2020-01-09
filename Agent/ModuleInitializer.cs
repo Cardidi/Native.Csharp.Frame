@@ -17,41 +17,41 @@ namespace Native.Csharp.Repair
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool AddDllDirectory(string lpPathName);
 
-        public static void Initialize ()
+        public static void Initialize()
         {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly ();
-            Type typeLoader = executingAssembly.GetType ("Costura.AssemblyLoader");
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+            Type typeLoader = executingAssembly.GetType("Costura.AssemblyLoader");
             if (typeLoader == null)
             {
                 return;
             }
 
-            Dictionary<string, string> assemblyNames = GetInstanceField<Dictionary<string, string>> (typeLoader, null, "assemblyNames");
-            Dictionary<string, string> symbolNames = GetInstanceField<Dictionary<string, string>> (typeLoader, null, "symbolNames");
-            Uri uriOuter = new Uri (executingAssembly.Location == null ? executingAssembly.CodeBase : executingAssembly.Location);
-            string path = Path.GetDirectoryName (uriOuter.LocalPath);
-            string appPath = Path.Combine (path, executingAssembly.GetName ().Name);
-            if (!Directory.Exists (path))
+            Dictionary<string, string> assemblyNames = GetInstanceField<Dictionary<string, string>>(typeLoader, null, "assemblyNames");
+            Dictionary<string, string> symbolNames = GetInstanceField<Dictionary<string, string>>(typeLoader, null, "symbolNames");
+            Uri uriOuter = new Uri(executingAssembly.Location == null ? executingAssembly.CodeBase : executingAssembly.Location);
+            string path = Path.GetDirectoryName(uriOuter.LocalPath);
+            string appPath = Path.Combine(path, executingAssembly.GetName().Name);
+            if (!Directory.Exists(path))
             {
                 return;
             }
-            Directory.CreateDirectory (appPath);
+            Directory.CreateDirectory(appPath);
 
 #pragma warning disable CS0618 // 类型或成员已过时
-            AppDomain.CurrentDomain.AppendPrivatePath (appPath);
+            AppDomain.CurrentDomain.AppendPrivatePath(appPath);
 #pragma warning restore CS0618 // 类型或成员已过时
 
-            AddDllDirectory (appPath);
+            AddDllDirectory(appPath);
 
             foreach (var assemblyName in assemblyNames)
             {
                 byte[] rawAssembly;
-                using (Stream stream = LoadStream (assemblyName.Value, executingAssembly))
+                using (Stream stream = LoadStream(assemblyName.Value, executingAssembly))
                 {
                     if (stream != null)
                     {
-                        rawAssembly = ReadStream (stream);
-                        File.WriteAllBytes (Path.Combine (appPath, assemblyName.Key + ".dll"), rawAssembly);
+                        rawAssembly = ReadStream(stream);
+                        File.WriteAllBytes(Path.Combine(appPath, assemblyName.Key + ".dll"), rawAssembly);
                     }
                 }
             };
@@ -59,15 +59,30 @@ namespace Native.Csharp.Repair
             foreach (var pdbName in symbolNames)
             {
                 byte[] rawAssembly;
-                using (Stream stream = LoadStream (pdbName.Value, executingAssembly))
+                using (Stream stream = LoadStream(pdbName.Value, executingAssembly))
                 {
                     if (stream != null)
                     {
-                        rawAssembly = ReadStream (stream);
-                        File.WriteAllBytes (Path.Combine (appPath, pdbName.Key + ".pdb"), rawAssembly);
+                        rawAssembly = ReadStream(stream);
+                        File.WriteAllBytes(Path.Combine(appPath, pdbName.Key + ".pdb"), rawAssembly);
                     }
                 }
             };
+
+            string bin = Path.Combine(Environment.CurrentDirectory, "bin");
+            string sqliteInterop = Path.Combine(bin, "SQLite.Interop.dll");
+
+            //释放SQLite.Interop.dll至酷Q Bin 目录
+            if (File.Exists(sqliteInterop) == false)
+            {
+                using (var fileStream = File.Create(sqliteInterop))
+                {
+                    using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{executingAssembly.FullName}.SQLite.Interop.dll"))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
+                }
+            }
         }
 
         private static T GetInstanceField<T>(Type type, object instance, string fieldName)

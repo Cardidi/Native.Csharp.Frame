@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{9B25746E-2720-4F5C-9359-0A7397E3EB2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Native.Csharp.Sdk.Extension", "Native.Csharp.Sdk.Extension\Native.Csharp.Sdk.Extension.csproj", "{640DBD0F-8411-4587-A743-0A2B653F5891}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,22 @@ Global
 		{9B25746E-2720-4F5C-9359-0A7397E3EB2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B25746E-2720-4F5C-9359-0A7397E3EB2E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B25746E-2720-4F5C-9359-0A7397E3EB2E}.Release|x86.Build.0 = Release|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Debug|x86.Build.0 = Debug|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{B9E15A1A-EFB3-49A4-8100-943C8A567B8B}.Release|x86.Build.0 = Release|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Debug|x86.Build.0 = Debug|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Release|x86.ActiveCfg = Release|Any CPU
+		{640DBD0F-8411-4587-A743-0A2B653F5891}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
