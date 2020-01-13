@@ -11,7 +11,7 @@ namespace Core.Action
     {
         public static void RemoveByGroupIdWithIndex(long groupId, int index)
         {
-            Common.Api.RemoveMessage(Common.CoolQDatabase.GetGroupEvent(groupId, index + 1).LastOrDefault().Id);
+            Common.Api.RemoveMessage(Common.CoolQDatabase.GetGroupEvent(groupId, index + 1).FirstOrDefault().Id);
         }
 
     }

@@ -58,7 +58,7 @@ namespace Core
                 }
             }
 
-            //下载消息中的图片
+            //被艾特时,下载消息中的图片
             ReceiveImage.ReceiveAllImageFromMessage(e.Message);
         }
 
