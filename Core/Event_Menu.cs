@@ -27,6 +27,10 @@ namespace Core
                 var propertyInfo = typeof(MainWindow).GetProperty("IsDisposed", BindingFlags.NonPublic | BindingFlags.Instance);
                 if (!(bool)propertyInfo.GetValue(Common.MainWindow, null))
                 {
+                    if(Common.MainWindow.WindowState == WindowState.Minimized)
+                    {
+                        Common.MainWindow.WindowState = WindowState.Normal;
+                    }
                     Common.MainWindow.Focus();
                     return;
                 }
