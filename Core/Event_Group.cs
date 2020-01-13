@@ -32,7 +32,14 @@ namespace Core
 
         public void GroupMemberIncrease(object sender, CQGroupMemberIncreaseEventArgs e)
         {
-
+            if(e.SubType == Native.Csharp.Sdk.Cqp.Enum.CQGroupMemberIncreaseType.Invite)
+            {
+                e.CQLog.Debug("GroupInvite", $"{e.BeingOperateQQ} invite {e.FromQQ} to join a group {e.FromGroup}.");
+            }
+            else
+            {
+                e.CQLog.Debug("GroupJoin",$"{e.FromQQ} join with ")
+            }
         }
 
         public void GroupUpload(object sender, CQGroupUploadEventArgs e)

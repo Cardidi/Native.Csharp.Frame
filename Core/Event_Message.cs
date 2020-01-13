@@ -40,18 +40,18 @@ namespace Core
             if (e.Message.CQCodes.Any(a => a.Function == Native.Csharp.Sdk.Cqp.Enum.CQFunction.At && a.Items["qq"] == e.CQApi.GetLoginQQ().Id.ToString()) == false) { return; }
 
             //价值100亿AI的核心
-            if (e.Message.OriginalMessage.Contains("?") || e.Message.OriginalMessage.Contains("？"))
+            if (e.Message.Text.Contains("?") || e.Message.Text.Contains("？"))
             {
                 //阻断事件，不再将事件传递给优先级更低的插件
                 e.Handler = true;
                 //将消息发送到群内
-                e.CQApi.SendGroupMessage(e.FromGroup, e.Message.OriginalMessage.Replace("?", "。").Replace("？", "。"));
+                e.CQApi.SendGroupMessage(e.FromGroup, e.Message.Text.Replace("?", "。").Replace("？", "。"));
             }
 
             //使用 "/撤回 {信息倒数条数}"
-            if (e.Message.OriginalMessage.Contains("/撤回"))
+            if (e.Message.Text.Contains("/撤回"))
             {
-                string digit = Regex.Match(e.Message.OriginalMessage, @"\d+").Value;
+                string digit = Regex.Match(e.Message.Text, @"\d+").Value;
                 if (int.TryParse(digit, out int index))
                 {
                     RemoveMessage.RemoveByGroupIdWithIndex(e.FromGroup.Id, index);
