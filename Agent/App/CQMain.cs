@@ -36,13 +36,7 @@ namespace Native.Csharp.App
 			container.RegisterType<IGroupBanSpeak, Event_Group>("群禁言事件处理");
 			container.RegisterType<IGroupManageChange, Event_Group>("群管理变动事件处理");
 			container.RegisterType<IGroupMemberDecrease, Event_Group>("群成员减少事件处理");
-
-			///酷Q:受邀请直接被拉进群时触发的群成员增加事件内QQ号码为0
-			///SDK:由於QQID校验机制，当发生受邀请直接被拉进群时会直接报错(QQ号码为0)。
-			///目前，请慎用IGroupMemberIncrease。
-			
-			//container.RegisterType<IGroupMemberIncrease, Event_Group>("群成员增加事件处理");
-
+			container.RegisterType<IGroupMemberIncrease, Event_Group>("群成员增加事件处理");
 			container.RegisterType<IGroupUpload, Event_Group>("群文件上传事件处理");
 
 			container.RegisterType<IMenuCall, Event_Menu>("应用设置");
