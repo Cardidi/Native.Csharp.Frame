@@ -56,6 +56,8 @@ namespace Core
 
             Common.Api = e.CQApi;
             Common.Log = e.CQLog;
+            Common.Friend = new Request.FriendList(e.CQApi,e.CQLog);
+
             ViewModel.MainInstance.Api = e.CQApi;
             ViewModel.MainInstance.Log = e.CQLog;
             ViewModel.MainInstance.UISettingPath = Path.Combine(e.CQApi.AppDirectory, "UISetting.ini");

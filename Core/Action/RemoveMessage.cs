@@ -13,6 +13,5 @@ namespace Core.Action
         {
             Common.Api.RemoveMessage(Common.CoolQDatabase.GetGroupEvent(groupId, index + 1).FirstOrDefault().Id);
         }
-
     }
 }

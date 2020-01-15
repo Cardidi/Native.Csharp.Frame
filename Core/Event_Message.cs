@@ -6,8 +6,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Core.Action;
+using Core.Request;
 using Native.Csharp.Sdk.Cqp.EventArgs;
 using Native.Csharp.Sdk.Cqp.Interface;
+using Native.Csharp.Sdk.Extension;
 using UI.Model;
 
 namespace Core
@@ -16,7 +18,37 @@ namespace Core
     {
         public void DiscussMessage(object sender, CQDiscussMessageEventArgs e)
         {
+        }
+        public void PrivateMessage(object sender, CQPrivateMessageEventArgs e)
+        {
+        }
 
+        /// <summary>
+        /// 社区上反馈的问题
+        /// </summary>
+        private void Issue(CQGroupMessageEventArgs e)
+        {
+            /// 2020-01-14 群匿名禁言失败(-14) 
+            if (e.IsFromAnonymous)
+            {
+                if (e.CQApi.SetGroupAnonymousMemberBanSpeak(e.FromGroup.Id, e.FromAnonymous, TimeSpan.FromMinutes(1)))
+                {
+                    e.CQLog.Debug("匿名禁言", "禁言失败");
+                }
+            }
+
+            ///2020-01-11 取群成员性别错乱
+            if (e.IsFromAnonymous == false)
+            {
+                e.CQLog.Debug("发言成员性别", e.CQApi.GetGroupMemberInfo(e.FromGroup, e.FromQQ).Sex.ToString());
+            }
+
+            ///2020-01-08 下载语音失败
+            if (e.Message.CQCodes.Any(a => a.Function == Native.Csharp.Sdk.Cqp.Enum.CQFunction.Record))
+            {
+                //下载消息中的语音
+                e.CQLog.Debug("下载语音", ReceiveRecord.ReceiveRecordAsAMR(e.Message) ?? "下载失败");
+            }
         }
 
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
@@ -29,12 +61,15 @@ namespace Core
                 Qq = e.FromQQ.Id,
                 GroupId = e.FromGroup.Id,
                 Content = e.Message.ToSendString(),
-                DisplayName = e.CQApi.GetGroupMemberInfo(e.FromGroup, e.FromQQ).Nick,
+                DisplayName = e.IsFromAnonymous ? e.FromAnonymous.Name : e.CQApi.GetGroupMemberInfo(e.FromGroup, e.FromQQ).Nick,
                 GroupName = e.CQApi.GetGroupInfo(e.FromGroup).Name,
             });
 
-            //沒有啟用插件时,不处理其他服务
+            //没有启用插件时,不处理其他服务
             if (Common.IsRunning == false) { return; }
+
+            //社区上反馈的问题
+            Issue(e);
 
             //判断收到的消息中是否有被艾特
             if (e.Message.CQCodes.Any(a => a.Function == Native.Csharp.Sdk.Cqp.Enum.CQFunction.At && a.Items["qq"] == e.CQApi.GetLoginQQ().Id.ToString()) == false) { return; }
@@ -60,11 +95,20 @@ namespace Core
 
             //被艾特时,下载消息中的图片
             ReceiveImage.ReceiveAllImageFromMessage(e.Message);
+
+            if (e.Message.Text.Contains("/好友列表"))
+            {
+                var list = Common.Friend.GetFrientList();
+                if (list != null)
+                {
+                    foreach (var f in list)
+                    {
+                        e.CQLog.Debug("好友", $"[{f.GroupName}] - {f.NickName}(VIP{f.VipLevel})");
+                    }
+                    e.CQApi.SendGroupMessage(e.FromGroup.Id, String.Join(Environment.NewLine, list.Select(f => $"[{f.GroupName}] - {f.NickName}(VIP{f.VipLevel})")));
+                }
+            }
         }
 
-        public void PrivateMessage(object sender, CQPrivateMessageEventArgs e)
-        {
-
-        }
     }
 }

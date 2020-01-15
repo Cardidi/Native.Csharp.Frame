@@ -1,4 +1,5 @@
-﻿using Core.Service;
+﻿using Core.Request;
+using Core.Service;
 using Native.Csharp.Sdk.Cqp;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace Core
         ///  酷Q日志的封装类
         /// </summary>
         public static CQLog Log { get; set; }
+
+        /// <summary>
+        /// 好友列表扩展
+        /// </summary>
+        public static FriendList Friend { get; set; }
 
         /// <summary>
         /// 新加入的朋友数

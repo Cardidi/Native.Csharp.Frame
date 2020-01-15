@@ -15,6 +15,7 @@ namespace Core
             if (e.SubType == Native.Csharp.Sdk.Cqp.Enum.CQGroupAddRequestType.RobotBeInviteAddGroup)
             {
                 e.CQLog.Debug("进群申请", $"机器人被邀请进群 {e.FromGroup}");
+
             }
             else
             {
