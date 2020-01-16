@@ -56,7 +56,8 @@ namespace Core
 
             Common.Api = e.CQApi;
             Common.Log = e.CQLog;
-            Common.Friend = new Request.FriendList(e.CQApi,e.CQLog);
+            Common.Friends = new Request.FriendList(e.CQApi,e.CQLog);
+            Common.VipInfo = new Request.VipInfo(e.CQApi, e.CQLog);
 
             ViewModel.MainInstance.Api = e.CQApi;
             ViewModel.MainInstance.Log = e.CQLog;

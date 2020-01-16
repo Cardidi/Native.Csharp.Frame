@@ -72,7 +72,7 @@
     <Compile Include="Action\RemoveMessage.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Model\Friend.cs" />
-    <Compile Include="Model\VipInfo.cs" />
+    <Compile Include="Model\Vip.cs" />
     <Compile Include="Module\HomeModule.cs" />
     <Compile Include="Helper\TCPHelper.cs" />
     <Compile Include="Request\FriendList.cs" />

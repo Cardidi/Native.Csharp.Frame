@@ -49,6 +49,14 @@ namespace Core
                 //下载消息中的语音
                 e.CQLog.Debug("下载语音", ReceiveRecord.ReceiveRecordAsAMR(e.Message) ?? "下载失败");
             }
+
+            ///2020-01-16 好友列表失败
+            try
+            {
+                var friends = e.CQApi.GetFriendList();
+                e.CQLog.Debug("Friends", String.Join(",", friends.Select(s => $"{s.Nick}({s.QQ})").ToList()) ?? "N/A");
+            }
+            catch { }
         }
 
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
@@ -98,7 +106,7 @@ namespace Core
 
             if (e.Message.Text.Contains("/好友列表"))
             {
-                var list = Common.Friend.GetFrientList();
+                var list = Common.Friends.GetFrientList();
                 if (list != null)
                 {
                     foreach (var f in list)
@@ -106,6 +114,15 @@ namespace Core
                         e.CQLog.Debug("好友", $"[{f.GroupName}] - {f.NickName}(VIP{f.VipLevel})");
                     }
                     e.CQApi.SendGroupMessage(e.FromGroup.Id, String.Join(Environment.NewLine, list.Select(f => $"[{f.GroupName}] - {f.NickName}(VIP{f.VipLevel})")));
+                }
+            }
+
+            if (e.Message.Text.Contains("/会员等级"))
+            {
+                var vip = Common.VipInfo.GetVipInfo(e.FromQQ.Id);
+                if(vip != null)
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup.Id, $"{vip.VipLevel}({vip.GrowupTotal},{vip.GrowSpeed})");
                 }
             }
         }

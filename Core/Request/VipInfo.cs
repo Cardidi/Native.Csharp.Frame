@@ -1,4 +1,5 @@
-﻿using Native.Csharp.Sdk.Cqp;
+﻿using Core.Model;
+using Native.Csharp.Sdk.Cqp;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Core.Request
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
-        public VipInfo GetVipInfo(long QqId)
+        public Vip GetVipInfo(long QqId)
         {
             string url = $"/p/mc/cardv2/other?platform=1&qq={QqId}&adtag=geren&aid=mvip.pingtai.mobileqq.androidziliaoka.fromqita";
 
@@ -44,7 +45,30 @@ namespace Core.Request
 
             if (response?.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                //TODO
+                try
+                {
+                    string Match1 = response.Content.Substring(response.Content.IndexOf("pk-name")+1);
+                    string Match2 = Match1.Substring(Match1.IndexOf("pk-name") + 1);
+                    string Match3 = Match2.Substring(Match2.IndexOf("pk-name") + 1);
+                    string Match4 = Match3.Substring(Match3.IndexOf("pk-name") + 1);
+                    string Match5 = Match4.Substring(Match4.IndexOf("pk-name") + 1);
+
+                    string QqLevel = new String(Match1.Substring(Match1.IndexOf("<small>LV</small>", Match1.IndexOf("<small>LV</small>") + 1) + "<small>LV</small>".Length, 4).Where(Char.IsNumber).ToArray());
+                    string LevelSpeed = new String(Match2.Substring(Match2.IndexOf("<small>倍</small>", Match2.IndexOf("<small>倍</small>") + 1) - 4, 5).SkipWhile((s) => s != '>').Skip(1).TakeWhile((s) => s != '<').ToArray());
+                    string VipLevel = new String(Match3.Substring(Match3.IndexOf("<small>", Match3.IndexOf("<small>") + 1) + "<small>".Length, 6).TakeWhile((c) => c != '<').ToArray());
+                    string GrowSpeed = new String(Match4.Substring(Match4.IndexOf("<p>", Match4.IndexOf("<p>") + 1) + "<p>".Length, 6).TakeWhile((c) => c != '<').ToArray());
+                    string GrowupTotal = new String(Match5.Substring(Match5.IndexOf("<p>", Match5.IndexOf("<p>") + 1) + "<p>".Length, 6).TakeWhile((c) => c != '<').Where(Char.IsNumber).ToArray());
+
+                    return new Vip()
+                    {
+                        QqLevel = int.Parse(QqLevel),
+                        LevelSpeed = double.Parse(QqLevel),
+                        GrowSpeed = double.Parse(GrowSpeed),
+                        VipLevel = VipLevel,
+                        GrowupTotal = long.Parse(GrowupTotal)
+                    };
+                }
+                catch { }
             }
             return null;
         }
