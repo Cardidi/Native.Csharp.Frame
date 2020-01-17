@@ -78,6 +78,7 @@
     <Compile Include="Model\Friend.cs" />
     <Compile Include="Model\Notice.cs" />
     <Compile Include="Model\Vip.cs" />
+    <Compile Include="Module\CoolQModule.cs" />
     <Compile Include="Module\HomeModule.cs" />
     <Compile Include="Helper\TCPHelper.cs" />
     <Compile Include="Request\FriendRequest.cs" />
@@ -111,6 +112,8 @@
       <Name>UI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Require\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

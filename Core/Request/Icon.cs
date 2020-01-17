@@ -47,7 +47,7 @@ namespace Core.Request
         public string SaveGroupIcon(long groupId, IconSize size = IconSize.Small, string folderPath = "", string prefix = "")
         {
             string url = $"/gh/{groupId}/{groupId}/{(int)size}";
-            string iconPath = Path.Combine(AppDirectory, folderPath, $"{prefix}{groupId}.jpg");
+            string iconPath = Path.Combine(folderPath, $"{prefix}{(int)size}_{groupId}.jpg");
             string fullPath = Path.Combine(Environment.CurrentDirectory, "data/image", iconPath);
 
             if (File.Exists(fullPath)) { return iconPath; }

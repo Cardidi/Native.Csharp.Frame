@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using Nancy.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace Core.Module
             {
                 return this.Response.AsText("It Works!");
             };
+
         }
     }
+
+
+
 }
