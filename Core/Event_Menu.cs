@@ -29,20 +29,20 @@ namespace Core
 
         public void OpenWinForm()
         {
-            if(Common.MainForm != null)
+            if (Common.MainForm != null)
             {
                 if (Common.MainForm.IsDisposed == false)
                 {
-                    if (Common.MainForm.WindowState  == System.Windows.Forms.FormWindowState.Minimized)
+                    if (Common.MainForm.WindowState == System.Windows.Forms.FormWindowState.Minimized)
                     {
                         Common.MainForm.WindowState = System.Windows.Forms.FormWindowState.Normal;
                     }
                     Common.MainForm.Focus();
                     return;
                 }
-                Common.MainForm = new MainForm();
-                Common.MainForm.Show();
             }
+            Common.MainForm = new MainForm();
+            Common.MainForm.Show();
         }
 
         public void OpenWpf()
