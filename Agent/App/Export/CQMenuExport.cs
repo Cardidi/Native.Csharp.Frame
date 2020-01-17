@@ -43,12 +43,21 @@ namespace Native.Csharp.App.Export
 		private static void ResolveBackcall ()	
 		{	
 			/*	
-			 * Name: 应用设置	
+			 * Name: 醋Q聊天窗	
 			 * Function: _menuA	
 			 */	
-			if (Common.AppInfo.UnityContainer.IsRegistered<IMenuCall> ("应用设置"))	
+			if (Common.AppInfo.UnityContainer.IsRegistered<IMenuCall> ("醋Q聊天窗"))	
 			{	
-				Menu_menuAHandler += Common.AppInfo.UnityContainer.Resolve<IMenuCall> ("应用设置").MenuCall;	
+				Menu_menuAHandler += Common.AppInfo.UnityContainer.Resolve<IMenuCall> ("醋Q聊天窗").MenuCall;	
+			}	
+			
+			/*	
+			 * Name: WinForm	
+			 * Function: _menuB	
+			 */	
+			if (Common.AppInfo.UnityContainer.IsRegistered<IMenuCall> ("WinForm"))	
+			{	
+				Menu_menuBHandler += Common.AppInfo.UnityContainer.Resolve<IMenuCall> ("WinForm").MenuCall;	
 			}	
 			
 		}	
@@ -56,7 +65,7 @@ namespace Native.Csharp.App.Export
 		
 		#region --导出方法--	
 		/*	
-		 * Name: 应用设置	
+		 * Name: 醋Q聊天窗	
 		 * Function: _menuA	
 		 */	
 		public static event EventHandler<CQMenuCallEventArgs> Menu_menuAHandler;	
@@ -65,8 +74,24 @@ namespace Native.Csharp.App.Export
 		{	
 			if (Menu_menuAHandler != null)	
 			{	
-				CQMenuCallEventArgs args = new CQMenuCallEventArgs (api, log, "应用设置", "_menuA");	
+				CQMenuCallEventArgs args = new CQMenuCallEventArgs (api, log, "醋Q聊天窗", "_menuA");	
 				Menu_menuAHandler (typeof (CQMenuExport), args);	
+			}	
+			return 0;	
+		}	
+		
+		/*	
+		 * Name: WinForm	
+		 * Function: _menuB	
+		 */	
+		public static event EventHandler<CQMenuCallEventArgs> Menu_menuBHandler;	
+		[DllExport (ExportName = "_menuB", CallingConvention = CallingConvention.StdCall)]	
+		public static int Menu_menuB ()	
+		{	
+			if (Menu_menuBHandler != null)	
+			{	
+				CQMenuCallEventArgs args = new CQMenuCallEventArgs (api, log, "WinForm", "_menuB");	
+				Menu_menuBHandler (typeof (CQMenuExport), args);	
 			}	
 			return 0;	
 		}	

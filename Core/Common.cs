@@ -54,9 +54,14 @@ namespace Core
         public static long NewFriends { get; set; } = 0;
 
         /// <summary>
-        /// UI窗口
+        /// UI窗口(WPF)
         /// </summary>
         public static MainWindow MainWindow = null;
+        
+        /// <summary>
+        /// UI窗口(WinForm)
+        /// </summary>
+        public static MainForm MainForm = null;
 
         /// <summary>
         /// 酷Q内部的数据库

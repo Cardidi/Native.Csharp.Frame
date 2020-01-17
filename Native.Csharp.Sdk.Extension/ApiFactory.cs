@@ -12,9 +12,23 @@ namespace Native.Csharp.Sdk.Extension
 {
     public static class ApiFactoryExtension
     {
-        public static bool SendMessage(this CQGroupMessageEventArgs e)
+        public static bool SendMessage(this CQGroupMessageEventArgs e, object[] message)
         {
-            return true;
+            return e.CQApi.SendGroupMessage(e.FromGroup.Id, message) == 0;
+        }
+
+        public static bool SendMessage(this CQGroupMessageEventArgs e, string message)
+        {
+            return e.CQApi.SendGroupMessage(e.FromGroup.Id, message) == 0;
+        }
+
+        public static bool SendMessageWithAt(this CQGroupMessageEventArgs e, string message)
+        {
+            return e.CQApi.SendGroupMessage(e.FromGroup.Id,
+                new object[]{
+                CQApi.CQCode_At(e.FromQQ.Id),
+                message,
+            }) == 0;
         }
     }
 }

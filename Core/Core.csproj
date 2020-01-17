@@ -37,8 +37,8 @@
     <Reference Include="Nancy.Hosting.Wcf, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.Hosting.Wcf.1.4.1\lib\net40\Nancy.Hosting.Wcf.dll</HintPath>
     </Reference>
-    <Reference Include="Native.Csharp.Sdk, Version=2.7.5.115, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Native.Csharp.Sdk.2.7.5.115\lib\net45\Native.Csharp.Sdk.dll</HintPath>
+    <Reference Include="Native.Csharp.Sdk, Version=2.7.6.116, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Native.Csharp.Sdk.2.7.6.116\lib\net45\Native.Csharp.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Native.Csharp.Tool, Version=3.0.8.106, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\Native.Csharp.Tool.3.0.8.106\lib\net45\Native.Csharp.Tool.dll</HintPath>
@@ -58,6 +58,7 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

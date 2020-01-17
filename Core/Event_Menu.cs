@@ -17,7 +17,32 @@ namespace Core
         public void MenuCall(object sender, CQMenuCallEventArgs e)
         {
             e.CQLog.Debug("菜单点击事件", $"打开介面-{e.Name}");
-            OpenWpf();
+            if(e.Name== "WinForm")
+            {
+                OpenWinForm();
+            }
+            else
+            {
+                OpenWpf();
+            }
+        }
+
+        public void OpenWinForm()
+        {
+            if(Common.MainForm != null)
+            {
+                if (Common.MainForm.IsDisposed == false)
+                {
+                    if (Common.MainForm.WindowState  == System.Windows.Forms.FormWindowState.Minimized)
+                    {
+                        Common.MainForm.WindowState = System.Windows.Forms.FormWindowState.Normal;
+                    }
+                    Common.MainForm.Focus();
+                    return;
+                }
+                Common.MainForm = new MainForm();
+                Common.MainForm.Show();
+            }
         }
 
         public void OpenWpf()
