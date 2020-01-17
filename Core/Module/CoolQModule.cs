@@ -10,9 +10,9 @@ namespace Core.Module
 {
     public class CoolQModule : NancyModule
     {
-        public CoolQModule()
+        public CoolQModule() : base("/cqapi")
         {
-            Post["/cqapi/SendGroupMessage"] = x =>
+            Post["/SendGroupMessage"] = x =>
             {
                 var para = this.Bind<ApiSendMessage>();
 
@@ -20,7 +20,7 @@ namespace Core.Module
                 return this.Response.AsJson(flag, flag > 0 ? HttpStatusCode.OK : HttpStatusCode.NotFound);
             };
 
-            Post["/cqapi/SendPrivateMessage"] = x =>
+            Post["/SendPrivateMessage"] = x =>
             {
                 var para = this.Bind<ApiSendMessage>();
 
@@ -28,7 +28,7 @@ namespace Core.Module
                 return this.Response.AsJson(flag, flag > 0 ? HttpStatusCode.OK : HttpStatusCode.NotFound);
             };
 
-            Post["/cqapi/SendDiscussMessage"] = x =>
+            Post["/SendDiscussMessage"] = x =>
             {
                 var para = this.Bind<ApiSendMessage>();
 
@@ -36,42 +36,43 @@ namespace Core.Module
                 return this.Response.AsJson(flag, flag > 0 ? HttpStatusCode.OK : HttpStatusCode.NotFound);
             };
 
-            Get["/cqapi/GetLoginQQ"] = x =>
-            {
-                return this.Response.AsJson(Common.Api.GetLoginQQ());
-            };
-            Get["/cqapi/GetLoginQQId"] = x =>
-            {
-                return this.Response.AsJson(Common.Api.GetLoginQQId());
-            };
-            Get["/cqapi/GetLoginNick"] = x =>
-            {
-                return this.Response.AsJson(Common.Api.GetLoginNick());
-            };
-            Get["/cqapi/GetFriendList"] = x =>
-            {
-                return this.Response.AsJson(Common.Api.GetFriendList());
-            };
-            Get["/cqapi/GetGroupList"] = x =>
-            {
-                return this.Response.AsJson(Common.Api.GetGroupList());
-            };
-
-            Post["/cqapi/GetStrangerInfo"] = x =>
+            Post["/GetStrangerInfo"] = x =>
             {
                 var para = this.Bind<ApiGetStrangerInfo>();
                 return this.Response.AsJson(Common.Api.GetStrangerInfo(para.QqId));
             };
-            Post["/cqapi/GetGroupMemberInfo"] = x =>
+            Post["/GetGroupMemberInfo"] = x =>
             {
                 var para = this.Bind<ApiGetGroupMemberInfo>();
                 return this.Response.AsJson(Common.Api.GetGroupMemberInfo(para.GroupId, para.QqId));
             };
-            Post["/cqapi/GetGroupMemberList"] = x =>
+            Post["/GetGroupMemberList"] = x =>
             {
                 var para = this.Bind<ApiGetGroupMemberList>();
                 return this.Response.AsJson(Common.Api.GetGroupMemberList(para.GroupId));
             };
+
+            Get["/GetLoginQQ"] = x =>
+            {
+                return this.Response.AsJson(Common.Api.GetLoginQQ());
+            };
+            Get["/GetLoginQQId"] = x =>
+            {
+                return this.Response.AsJson(Common.Api.GetLoginQQId());
+            };
+            Get["/GetLoginNick"] = x =>
+            {
+                return this.Response.AsJson(Common.Api.GetLoginNick());
+            };
+            Get["/GetFriendList"] = x =>
+            {
+                return this.Response.AsJson(Common.Api.GetFriendList().Select(s=> new { s.Nick, s.QQ.Id , s.Postscript}));
+            };
+            Get["/GetGroupList"] = x =>
+            {
+                return this.Response.AsJson(Common.Api.GetGroupList().Select(s => new { s.Group.Id, s.Name, s.CurrentMemberCount, s.MaxMemberCount}));
+            };
+
         }
     }
 
