@@ -37,7 +37,7 @@ namespace Core.Request
         {
             string url = $"/g?b=qq&nk={qqId}&s={(int)size}";
             string iconPath = Path.Combine(folderPath, $"{prefix}{(int)size}_{qqId}.jpg");
-            string fullPath = Path.Combine(AppDirectory, "../data/image", iconPath);
+            string fullPath = Path.Combine(Environment.CurrentDirectory, "data/image", iconPath);
 
             if (File.Exists(fullPath)) { return iconPath; }
             if (DownloadAndSave(restClientQq, url, iconPath, fullPath)) { return iconPath; }
@@ -48,7 +48,7 @@ namespace Core.Request
         {
             string url = $"/gh/{groupId}/{groupId}/{(int)size}";
             string iconPath = Path.Combine(AppDirectory, folderPath, $"{prefix}{groupId}.jpg");
-            string fullPath = Path.Combine(AppDirectory, "../data/image", iconPath);
+            string fullPath = Path.Combine(Environment.CurrentDirectory, "data/image", iconPath);
 
             if (File.Exists(fullPath)) { return iconPath; }
             if (DownloadAndSave(restClientGroup, url, iconPath, fullPath)) { return iconPath; }
@@ -57,7 +57,7 @@ namespace Core.Request
 
         private bool DownloadAndSave(RestClient client, string url, string iconPath, string fullPath)
         {
-            var response = restClientGroup.Execute(new RestRequest(url));
+            var response = client.Execute(new RestRequest(url));
             if (response?.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 try
