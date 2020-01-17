@@ -39,7 +39,8 @@ namespace Native.Csharp.App
 			container.RegisterType<IGroupMemberIncrease, Event_Group>("群成员增加事件处理");
 			container.RegisterType<IGroupUpload, Event_Group>("群文件上传事件处理");
 
-			container.RegisterType<IMenuCall, Event_Menu>("应用设置");
+			container.RegisterType<IMenuCall, Event_Menu>("醋Q聊天窗");
+			container.RegisterType<IMenuCall, Event_Menu>("WinForm");
 			container.RegisterType<IStatusUpdate, Event_Status>("新加好友累计");
 
 		}
