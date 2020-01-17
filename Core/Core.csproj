@@ -72,6 +72,9 @@
     <Compile Include="Action\ReceiveRecord.cs" />
     <Compile Include="Action\RemoveMessage.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Helper\ProcessExtensions.cs" />
+    <Compile Include="Helper\User32.cs" />
+    <Compile Include="Model\CQMenu.cs" />
     <Compile Include="Model\Friend.cs" />
     <Compile Include="Model\Notice.cs" />
     <Compile Include="Model\Vip.cs" />

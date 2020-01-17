@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Core.Action;
+using Core.Helper;
 using Core.Request;
 using Native.Csharp.Sdk.Cqp;
 using Native.Csharp.Sdk.Cqp.EventArgs;
@@ -21,7 +23,14 @@ namespace Core
         {
         }
         public void PrivateMessage(object sender, CQPrivateMessageEventArgs e)
-        {
+        {   
+            if (e.SubType == Native.Csharp.Sdk.Cqp.Enum.CQPrviateMessageType.Friend)
+            {
+                if (e.Message.Text.Contains("/重启"))
+                {
+                    User32.SendMessage(Process.GetCurrentProcess().ParentProcess().MainWindowHandle, 273, (int)Model.CQMenu.Reset , null);
+                }
+            }
         }
 
         /// <summary>
@@ -140,6 +149,7 @@ namespace Core
             {
                 Common.Group.GetGroupNotice(e.FromGroup.Id);
             }
+
         }
 
     }
