@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Core.Action;
 using Core.Request;
+using Native.Csharp.Sdk.Cqp;
 using Native.Csharp.Sdk.Cqp.EventArgs;
 using Native.Csharp.Sdk.Cqp.Interface;
 using Native.Csharp.Sdk.Extension;
@@ -120,10 +121,24 @@ namespace Core
             if (e.Message.Text.Contains("/会员等级"))
             {
                 var vip = Common.VipInfo.GetVipInfo(e.FromQQ.Id);
-                if(vip != null)
+                if (vip != null)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup.Id, $"{vip.VipLevel}({vip.GrowupTotal},{vip.GrowSpeed})");
                 }
+            }
+
+            if (e.Message.Text.Contains("/头像"))
+            {
+                string iconFilePath = Common.Icon.SaveQqIcon(e.FromQQ.Id);
+                if (String.IsNullOrEmpty(iconFilePath) == false)
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup.Id, CQApi.CQCode_Image(iconFilePath).ToSendString());
+                }
+            }
+
+            if (e.Message.Text.Contains("/群公告"))
+            {
+                Common.Group.GetGroupNotice(e.FromGroup.Id);
             }
         }
 

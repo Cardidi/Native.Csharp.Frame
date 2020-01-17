@@ -14,7 +14,7 @@ namespace Core.Request
     {
         static readonly RestClient restClientMobile = new RestClient("https://h5.vip.qq.com");
         static readonly string userAgentMobile = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16A5288q QQ/6.5.5.0 TIM/2.2.5.401 V1_IPH_SQ_6.5.5_1_TIM_D Pixel/750 Core/UIWebView Device/Apple(iPhone 6s) NetType/WIFI";
-        
+
         private int Gtk { get; set; }
         private long Login_Qq { get; set; }
         private CQLog Log { get; set; }
@@ -47,7 +47,7 @@ namespace Core.Request
             {
                 try
                 {
-                    string Match1 = response.Content.Substring(response.Content.IndexOf("pk-name")+1);
+                    string Match1 = response.Content.Substring(response.Content.IndexOf("pk-name") + 1);
                     string Match2 = Match1.Substring(Match1.IndexOf("pk-name") + 1);
                     string Match3 = Match2.Substring(Match2.IndexOf("pk-name") + 1);
                     string Match4 = Match3.Substring(Match3.IndexOf("pk-name") + 1);

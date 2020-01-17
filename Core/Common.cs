@@ -31,12 +31,22 @@ namespace Core
         /// <summary>
         /// 好友列表扩展
         /// </summary>
-        public static FriendList Friends { get; set; }
+        public static FriendRequest Friends { get; set; }
 
         /// <summary>
         /// QQ会员资料
         /// </summary>
         public static VipInfo VipInfo { get; set; }
+
+        /// <summary>
+        /// QQ图标
+        /// </summary>
+        public static Icon Icon { get; set; }
+
+        /// <summary>
+        /// 群公告
+        /// </summary>
+        public static GroupRequest Group { get; set; }
 
         /// <summary>
         /// 新加入的朋友数

@@ -72,10 +72,13 @@
     <Compile Include="Action\RemoveMessage.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Model\Friend.cs" />
+    <Compile Include="Model\Notice.cs" />
     <Compile Include="Model\Vip.cs" />
     <Compile Include="Module\HomeModule.cs" />
     <Compile Include="Helper\TCPHelper.cs" />
-    <Compile Include="Request\FriendList.cs" />
+    <Compile Include="Request\FriendRequest.cs" />
+    <Compile Include="Request\Icon.cs" />
+    <Compile Include="Request\GroupRequest.cs" />
     <Compile Include="Request\VipInfo.cs" />
     <Compile Include="Service\CQDataBase.cs" />
     <Compile Include="Event_App.cs" />

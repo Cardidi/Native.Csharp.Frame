@@ -1,4 +1,5 @@
-﻿using Native.Csharp.Sdk.Cqp.EventArgs;
+﻿using Native.Csharp.Sdk.Cqp;
+using Native.Csharp.Sdk.Cqp.EventArgs;
 using Native.Csharp.Sdk.Cqp.Interface;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,24 @@ namespace Core
             if (e.SubType == Native.Csharp.Sdk.Cqp.Enum.CQGroupAddRequestType.RobotBeInviteAddGroup)
             {
                 e.CQLog.Debug("进群申请", $"机器人被邀请进群 {e.FromGroup?.Id ?? -1}");
-
             }
             else
             {
                 e.CQLog.Debug("进群申请", $"申请人 {e.FromQQ?.Id ?? -1} 进群 {e.FromGroup?.Id ?? -1}");
             }
+
+            ///QQ等级达1个太阳
+            if (Common.VipInfo.GetVipInfo(e.FromQQ.Id).QqLevel >= 16)
+            {
+                e.CQApi.SetGroupAddRequest(e.ResponseFlag, Native.Csharp.Sdk.Cqp.Enum.CQGroupAddRequestType.ApplyAddGroup, Native.Csharp.Sdk.Cqp.Enum.CQResponseType.PASS, "");
+            }
+
+            //是会员
+            if (Common.VipInfo.GetVipInfo(e.FromQQ.Id).VipLevel != "普通用户")
+            {
+                e.CQApi.SetGroupAddRequest(e.ResponseFlag, Native.Csharp.Sdk.Cqp.Enum.CQGroupAddRequestType.ApplyAddGroup, Native.Csharp.Sdk.Cqp.Enum.CQResponseType.PASS, "$$$");
+            }
+
         }
 
         public void GroupBanSpeak(object sender, CQGroupBanSpeakEventArgs e)
@@ -69,11 +82,32 @@ namespace Core
             {
                 e.CQLog.Debug("自主进群", $"{e.FromQQ?.Id ?? -1}加入了群");
             }
+
+            List<string> msg = new List<string>();
+
+            msg.Add("欢迎");
+            msg.Add(CQApi.CQCode_At(e.FromQQ.Id).ToSendString());
+
+            if (e.CQApi.IsAllowSendImage)
+            {
+                string iconFilePath = Common.Icon.SaveQqIcon(e.FromQQ.Id);
+                if (String.IsNullOrEmpty(iconFilePath) == false)
+                {
+                    msg.Add(CQApi.CQCode_Image(iconFilePath).ToSendString());
+                }
+            }
+
+            msg.Add(Environment.NewLine);
+            msg.Add($"最新版SDK：http://t.cn/AiC4CDmL");
+            msg.Add(Environment.NewLine);
+            msg.Add($"开发文档：http://t.cn/Exaf1nL");
+            msg.Add(Environment.NewLine);
+            msg.Add($"部署教程：http://t.cn/AiKIrDme");
         }
 
         public void GroupUpload(object sender, CQGroupUploadEventArgs e)
         {
-            e.CQLog.Debug("新群文件", $"{e.FromQQ?.Id ?? -1} 上传了 {e.FileInfo?.FileName ??"N/A"}({e.FileInfo?.FileSize ?? -1}) 到群 {e.FromGroup?.Id ?? -1}");
+            e.CQLog.Debug("新群文件", $"{e.FromQQ?.Id ?? -1} 上传了 {e.FileInfo?.FileName ?? "N/A"}({e.FileInfo?.FileSize ?? -1}) 到群 {e.FromGroup?.Id ?? -1}");
         }
     }
 }

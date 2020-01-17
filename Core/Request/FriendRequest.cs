@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace Core.Request
 {
-    public class FriendList
+    public class FriendRequest
     {
         static readonly RestClient restClientMobile = new RestClient("http://m.qzone.com/");
         static readonly RestClient restClientPC = new RestClient("https://h5.qzone.qq.com/");
@@ -27,7 +27,7 @@ namespace Core.Request
         private long Login_Qq { get; set; }
         private CQLog Log { get; set; }
 
-        public FriendList(CQApi api, CQLog log)
+        public FriendRequest(CQApi api, CQLog log)
         {
             Log = log;
             Gtk = api.GetCsrfToken();
@@ -54,11 +54,11 @@ namespace Core.Request
         /// <returns></returns>
         public List<Friend> GetFrientListH5()
         {
-            string url = $"/proxy/domain/base.qzone.qq.com/cgi-bin/user/friend_show_qqfriends?g_tk={Gtk}&uin={Login_Qq}";
-
-            RestRequest request = new RestRequest(url);
             List<Friend> friends = new List<Friend>();
             JObject obj = null;
+
+            string url = $"/proxy/domain/base.qzone.qq.com/cgi-bin/user/friend_show_qqfriends?g_tk={Gtk}&uin={Login_Qq}";
+            RestRequest request = new RestRequest(url);
             var response = restClientPC.Execute(request);
 
             if (response?.StatusCode == System.Net.HttpStatusCode.OK)
