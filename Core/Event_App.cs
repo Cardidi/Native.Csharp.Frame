@@ -46,20 +46,23 @@ namespace Core
 
         public void CQStartup(object sender, CQStartupEventArgs e)
         {
-            Common.CoolQDatabase = new CQDataBase(e.CQApi.GetLoginQQ().Id);
+            Common.CoolQDatabase = new CoolQDataBase(e.CQApi.GetLoginQQ().Id);
 
             Common.WebServiceHostPort = TCPHelper.GetAvailablePort(80);
+            Common.WebSocketPort = TCPHelper.GetAvailablePort(10000);
+
             Common.WebServiceHost = new WebServiceHost(new NancyWcfGenericService(new Startup.NancyBootstrapper()), new Uri($"http://localhost:{Common.WebServiceHostPort}"));
             Common.WebServiceHost.AddServiceEndpoint(typeof(NancyWcfGenericService), new Startup.NancyWebHttpBinding(), "");
 
             e.CQLog.Info("WCF服务端口", $"{Common.WebServiceHostPort}");
-
+            e.CQLog.Info("WebSocket服务端口", $"{Common.WebSocketPort}");
             Common.Api = e.CQApi;
             Common.Log = e.CQLog;
             Common.Friends = new Request.FriendRequest(e.CQApi,e.CQLog);
             Common.VipInfo = new Request.VipInfo(e.CQApi, e.CQLog);
             Common.Icon = new Request.Icon(e.CQApi, e.CQLog);
             Common.Group = new Request.GroupRequest(e.CQApi, e.CQLog);
+            Common.CoolQWebSocket = new CoolQWebSocket(e.CQApi, e.CQLog);
 
             ViewModel.MainInstance.Api = e.CQApi;
             ViewModel.MainInstance.Log = e.CQLog;

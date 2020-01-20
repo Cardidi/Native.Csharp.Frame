@@ -66,7 +66,7 @@ namespace Core
         /// <summary>
         /// 酷Q内部的数据库
         /// </summary>
-        public static CQDataBase CoolQDatabase { get; set; }
+        public static CoolQDataBase CoolQDatabase { get; set; }
 
         /// <summary>
         /// WCF服务
@@ -74,15 +74,33 @@ namespace Core
         public static WebServiceHost WebServiceHost { get; set; }
 
         /// <summary>
+        /// WebSocket服务
+        /// </summary>
+        public static CoolQWebSocket CoolQWebSocket { get; set; }
+
+        /// <summary>
         /// WCF服务端口
         /// </summary>
         public static int WebServiceHostPort { get; set; }
 
         /// <summary>
+        /// WebSocket服务端口
+        /// </summary>
+        public static int WebSocketPort { get; set; }
+
+        /// <summary>
+        /// WebSocket访问密钥
+        /// </summary>
+        public static string WebSocketSecret = "kSLuTF2GC2Q4q4ugm3";
+
+        /// <summary>
+        /// ZeroMQ服务端口
+        /// </summary>
+        public static int ZeroMQPort { get; set; }
+        /// <summary>
         /// 悬浮窗使用时长
         /// </summary>
         public static long UpTime { get; set; }
-
 
     }
 }

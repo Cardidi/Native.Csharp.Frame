@@ -21,9 +21,12 @@ namespace Core
     {
         public void DiscussMessage(object sender, CQDiscussMessageEventArgs e)
         {
+            Common.CoolQWebSocket.CQDiscussMessage(sender, e);
         }
         public void PrivateMessage(object sender, CQPrivateMessageEventArgs e)
-        {   
+        {
+            Common.CoolQWebSocket.CQPrivateMessageEventArgs(sender, e);
+
             if (e.SubType == Native.Csharp.Sdk.Cqp.Enum.CQPrviateMessageType.Friend)
             {
                 if (e.Message.Text.Contains("/重启"))
@@ -71,6 +74,8 @@ namespace Core
 
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
         {
+            Common.CoolQWebSocket.CQGroupMessageEventArgs(sender, e);
+
             //绑定数据同步
             BindingOperations.EnableCollectionSynchronization(ViewModel.MainInstance.GroupMessages, ViewModel.MainInstance.SyncLock);
 

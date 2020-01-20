@@ -31,17 +31,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncIO, Version=0.1.69.0, Culture=neutral, PublicKeyToken=44a94435bd6f33f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncIO.0.1.69\lib\net40\AsyncIO.dll</HintPath>
+    </Reference>
+    <Reference Include="Fleck, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fleck.1.1.0\lib\net45\Fleck.dll</HintPath>
+    </Reference>
     <Reference Include="Nancy, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.1.4.1\lib\net40\Nancy.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Wcf, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.Hosting.Wcf.1.4.1\lib\net40\Nancy.Hosting.Wcf.dll</HintPath>
     </Reference>
-    <Reference Include="Native.Csharp.Sdk, Version=2.7.6.116, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Native.Csharp.Sdk.2.7.6.116\lib\net45\Native.Csharp.Sdk.dll</HintPath>
+    <Reference Include="Native.Csharp.Sdk, Version=2.7.10.119, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Native.Csharp.Sdk.2.7.10.119\lib\net45\Native.Csharp.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="Native.Csharp.Tool, Version=3.0.8.106, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\Native.Csharp.Tool.3.0.8.106\lib\net45\Native.Csharp.Tool.dll</HintPath>
+    </Reference>
+    <Reference Include="NetMQ, Version=4.0.0.207, Culture=neutral, PublicKeyToken=a6decef4ddc58b3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetMQ.4.0.0.207\lib\net40\NetMQ.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -85,7 +94,9 @@
     <Compile Include="Request\Icon.cs" />
     <Compile Include="Request\GroupRequest.cs" />
     <Compile Include="Request\VipInfo.cs" />
-    <Compile Include="Service\CQDataBase.cs" />
+    <Compile Include="Service\CoolQWebSocket.cs" />
+    <Compile Include="Service\CoolQZeroMQ.cs" />
+    <Compile Include="Service\CoolQDataBase.cs" />
     <Compile Include="Event_App.cs" />
     <Compile Include="Event_Friend.cs" />
     <Compile Include="Event_Group.cs" />

@@ -12,13 +12,13 @@ using SQLite;
 
 namespace Core.Service
 {
-    public class CQDataBase
+    public class CoolQDataBase
     {
         private static SQLiteConnection DatabaseEvent { get; set; }
         private static SQLiteConnection DatabaseLog { get; set; }
         private static SQLiteConnection DatabaseCache { get; set; }
         private readonly long QqId;
-        public CQDataBase(long qqId)
+        public CoolQDataBase(long qqId)
         {
             QqId = qqId;
             string db_CachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", $"{QqId}", "cache.db");
